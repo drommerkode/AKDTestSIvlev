@@ -29,7 +29,7 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Jump.started += SetJump;
         _input.Player.Jump.canceled += SetJump;
 
-        _input.Player.PickUpItem.started += SetPickUpItem;
+        _input.Player.PickupItem.started += SetPickupItem;
 
         _input.Player.DropItem.started += SetDropItem;
     }
@@ -44,7 +44,7 @@ public class PlayerInput : MonoBehaviour
         _input.Player.Jump.started -= SetJump;
         _input.Player.Jump.canceled -= SetJump;
 
-        _input.Player.PickUpItem.started -= SetPickUpItem;
+        _input.Player.PickupItem.started -= SetPickupItem;
 
         _input.Player.DropItem.started -= SetDropItem;
 
@@ -63,8 +63,8 @@ public class PlayerInput : MonoBehaviour
         _playerMovement.SetJumpInput(ctx.started);
     }
 
-    private void SetPickUpItem(InputAction.CallbackContext ctx) {
-        _playerInteraction.PickUpItem();
+    private void SetPickupItem(InputAction.CallbackContext ctx) {
+        _playerInteraction.PickupItem();
     }
 
     private void SetDropItem(InputAction.CallbackContext ctx) {

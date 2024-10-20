@@ -33,7 +33,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "PickUpItem",
+                    "name": "PickupItem",
                     "type": "Button",
                     "id": "988186df-47a7-4de8-b327-44645bbf04de",
                     "expectedControlType": "Button",
@@ -136,14 +136,14 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PickUpItem",
+                    "action": "PickupItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "6dd6b195-40a4-4e79-89e7-f4c0b2d929c4",
-                    "path": "<Keyboard>/g",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

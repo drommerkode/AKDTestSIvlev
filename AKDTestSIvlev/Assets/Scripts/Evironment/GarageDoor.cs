@@ -11,7 +11,7 @@ public class GarageDoor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         _bc.enabled = false;
-        transform.DORotate(new Vector3(0f, 0f, 90f), 0.8f);
+        transform.DOLocalRotate(new Vector3(0f, 0f, 90f), 0.8f);
         transform.DOLocalMoveX(0f, 1.6f);
     }
 }

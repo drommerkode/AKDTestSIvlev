@@ -64,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundCheckMask);
-        Debug.Log(_isGrounded);
     }
 
     private void OnDrawGizmos() {

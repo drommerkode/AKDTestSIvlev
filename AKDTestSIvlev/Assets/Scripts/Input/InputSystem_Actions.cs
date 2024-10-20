@@ -55,7 +55,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""PickUpItem"",
+                    ""name"": ""PickupItem"",
                     ""type"": ""Button"",
                     ""id"": ""988186df-47a7-4de8-b327-44645bbf04de"",
                     ""expectedControlType"": ""Button"",
@@ -158,14 +158,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""PickUpItem"",
+                    ""action"": ""PickupItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""6dd6b195-40a4-4e79-89e7-f4c0b2d929c4"",
-                    ""path"": ""<Keyboard>/g"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -183,7 +183,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_PickUpItem = m_Player.FindAction("PickUpItem", throwIfNotFound: true);
+        m_Player_PickupItem = m_Player.FindAction("PickupItem", throwIfNotFound: true);
         m_Player_DropItem = m_Player.FindAction("DropItem", throwIfNotFound: true);
     }
 
@@ -249,7 +249,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_PickUpItem;
+    private readonly InputAction m_Player_PickupItem;
     private readonly InputAction m_Player_DropItem;
     public struct PlayerActions
     {
@@ -258,7 +258,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @PickUpItem => m_Wrapper.m_Player_PickUpItem;
+        public InputAction @PickupItem => m_Wrapper.m_Player_PickupItem;
         public InputAction @DropItem => m_Wrapper.m_Player_DropItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
@@ -278,9 +278,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @PickUpItem.started += instance.OnPickUpItem;
-            @PickUpItem.performed += instance.OnPickUpItem;
-            @PickUpItem.canceled += instance.OnPickUpItem;
+            @PickupItem.started += instance.OnPickupItem;
+            @PickupItem.performed += instance.OnPickupItem;
+            @PickupItem.canceled += instance.OnPickupItem;
             @DropItem.started += instance.OnDropItem;
             @DropItem.performed += instance.OnDropItem;
             @DropItem.canceled += instance.OnDropItem;
@@ -297,9 +297,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @PickUpItem.started -= instance.OnPickUpItem;
-            @PickUpItem.performed -= instance.OnPickUpItem;
-            @PickUpItem.canceled -= instance.OnPickUpItem;
+            @PickupItem.started -= instance.OnPickupItem;
+            @PickupItem.performed -= instance.OnPickupItem;
+            @PickupItem.canceled -= instance.OnPickupItem;
             @DropItem.started -= instance.OnDropItem;
             @DropItem.performed -= instance.OnDropItem;
             @DropItem.canceled -= instance.OnDropItem;
@@ -325,7 +325,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnPickUpItem(InputAction.CallbackContext context);
+        void OnPickupItem(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);
     }
 }
