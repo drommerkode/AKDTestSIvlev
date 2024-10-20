@@ -55,9 +55,10 @@ public class PlayerMovement : MonoBehaviour
             if (_jumpInput) {
                 _verticalVelocity.y = Mathf.Sqrt(_jumpVelocity * -2 * gravity);
             }
+        } else {
+            _verticalVelocity.y += gravity * deltaTime;
         }
 
-        _verticalVelocity.y += gravity * deltaTime;
         _cc.Move(_verticalVelocity * deltaTime);
     }
 
