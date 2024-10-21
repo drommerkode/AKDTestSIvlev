@@ -1,50 +1,61 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Pickup")]
-    [SerializeField] private LayerMask _maskLayers;
+    [SerializeField] private LayerMask _maskColisions;
+    [SerializeField] private LayerMask _maskItems;
     [SerializeField] private float _rayLength;
     [SerializeField] private Transform _camera;
     [SerializeField] private Transform _itemPickupedPosition;
-    private Item _itemInHand;
-    private Item _itemLoked;
-    private bool _lookOnItem;
+    private LayerMask _maskColissionsAndItems;
+    private GameObject _itemInHand;
+    private GameObject _objectLoked;
+    private Item _itemLooked;
     private Rigidbody _itemRB;
 
     [Header("Drop")]
     [SerializeField] private float _dropForwardForce = 250;
     [SerializeField] private float _dropUpForce = 100f;
 
+    private void Awake() {
+        _maskColissionsAndItems = _maskColisions + _maskItems;
+    }
+
     private void FixedUpdate() {
-        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hit, _rayLength, _maskLayers)) {
-            if (hit.transform.TryGetComponent<Item>(out _itemLoked)) {
-                if (!_lookOnItem && _itemInHand == null) {
-                    EventBus.OnPickupItemText.Invoke(true);
-                }
-                _lookOnItem = true;
-            } else {
-                ResetItemLook();
+        if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit lookHit, _rayLength, _maskColissionsAndItems)) {
+            if (_objectLoked == lookHit.transform.gameObject) { return; }
+
+            ResetItemLook();
+
+            if ((_maskItems & (1 << lookHit.transform.gameObject.layer)) == 0) { return; }
+            _objectLoked = lookHit.transform.gameObject;
+
+            if (_itemInHand == null) {
+                _itemLooked = _objectLoked.GetComponent<Item>();
+                _itemLooked.SetOutlineEnable(true);
+                EventBus.OnPickupItemText.Invoke(true);
             }
+            
         } else {
             ResetItemLook();
         }
     }
 
     private void ResetItemLook() {
-        if (_lookOnItem) {
-            EventBus.OnPickupItemText.Invoke(false); 
-        }
-        _lookOnItem = false;
+        if (_objectLoked == null) { return; }
+        EventBus.OnPickupItemText.Invoke(false);
+        _itemLooked?.SetOutlineEnable(false);
+        _objectLoked = null;
+        _itemLooked = null;
     }
 
     public void PickupItem() {
-        if (_itemLoked == null) { return; }
+        if (_objectLoked == null) { return; }
         if (_itemInHand != null) { return; }
 
-        _itemInHand = _itemLoked;
+        _itemInHand = _objectLoked;
 
         _itemRB = _itemInHand.GetComponent<Rigidbody>();
         _itemRB.isKinematic = true;
@@ -56,7 +67,7 @@ public class PlayerInteraction : MonoBehaviour
         itemTransform.localPosition  = Vector3.zero;
 
         EventBus.OnDropItemText.Invoke(true);
-        EventBus.OnPickupItemText.Invoke(false);
+        ResetItemLook();
     }
 
     public void DropItem() {
